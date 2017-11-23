@@ -60,3 +60,9 @@ target/
 
 # pyenv python configuration file
 .python-version
+
+# ignore vscode
+.vscode/
+
+# ignore mypy_cache
+.mypy_cache/

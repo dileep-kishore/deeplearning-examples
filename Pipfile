@@ -1,0 +1,37 @@
+[[source]]
+
+url = "https://pypi.python.org/simple"
+verify_ssl = false
+name = "pypi"
+
+
+[packages]
+
+bumpversion = "*"
+watchdog = "*"
+"flake8" = "*"
+tox = "*"
+coverage = "*"
+sphinx = "*"
+pytest = "*"
+pytest-runner = "*"
+"bb297d5" = {file = "http://download.pytorch.org/whl/cu80/torch-0.2.0.post3-cp36-cp36m-manylinux1_x86_64.whl"}
+
+
+[dev-packages]
+
+bumpversion = "*"
+watchdog = "*"
+"flake8" = "*"
+tox = "*"
+coverage = "*"
+sphinx = "*"
+pytest = "*"
+pytest-runner = "*"
+mypy = "*"
+pylint = "*"
+
+
+[requires]
+
+python_version = "3.6"
