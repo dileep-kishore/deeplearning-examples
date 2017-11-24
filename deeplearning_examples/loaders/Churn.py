@@ -3,7 +3,7 @@
 
 from collections import OrderedDict
 import os
-from typing import Tuple, Iterable, Sequence, Dict
+from typing import Tuple, Iterable, Sequence, Dict, Union
 import numpy as np
 import pandas as pd
 from sklearn.preprocessing import LabelEncoder, OneHotEncoder
@@ -35,14 +35,16 @@ class Churn:
     _feature_dict = {
         'multi-category': {'Geography'},
         'binary-category': {'Gender', 'HasCrCard', 'IsActiveMember', 'Exited'},
-        'int': {'CreditScore', 'Age', 'Tenure', 'NumofProducts'},
+        'int': {'CreditScore', 'Age', 'Tenure', 'NumOfProducts'},
         'float': {'Balance', 'EstimatedSalary'}
     }
 
-    def __init__(self, features: Iterable[str]) -> None:
+    def __init__(self, features: Union[Iterable[str], str] = 'all') -> None:
         churn_path = os.path.join(datapath(), 'churn/Churn_Modeling.csv')
+        self.raw_data = pd.read_csv(churn_path, index_col=0)
+        if features == 'all':
+            features = self.all_features
         assert self._validate_features(features), "Invalid features given"
-        self.raw_data = pd.read_csv(churn_path)
         self._features = features + ['Exited']
 
     def __call__(self):
@@ -50,6 +52,18 @@ class Churn:
         feat_meta = self._get_feat_meta(self._features)
         data_encoder = Encoder(feat_meta)
         return data_encoder.encode(raw_train, raw_test, 'Exited')
+
+    @property
+    def all_features(self) -> Iterable[str]:
+        """
+            Returns all the possible features that can be used
+            Returns:
+            -------
+            Iterable[str]
+                A list of all possible features
+        """
+        features = list(self.raw_data.columns)
+        return [f for f in features if f not in {'Exited', 'RowNumber', 'CustomerId', 'Surname'}]
 
     def _validate_features(self, features: Iterable[str]) -> bool:
         """
