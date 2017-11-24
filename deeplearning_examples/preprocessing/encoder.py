@@ -44,13 +44,13 @@ class Encoder:
             if isinstance(processor, list):
                 #FIXME: Assuming this involves only the OneHotEncoder for now
                 processor_inst = processor[0]()
-                train_encoded[:, i] = processor_inst.fit_transform(train[feat].values.reshape(-1,1)).squeeze()
-                test_encoded[:, i] = processor_inst.transform(test[feat].values.reshape(-1,1)).squeeze()
+                train_encoded[:, i] = processor_inst.fit_transform(train[feat].values.reshape(-1, 1)).squeeze()
+                test_encoded[:, i] = processor_inst.transform(test[feat].values.reshape(-1, 1)).squeeze()
                 onehots.append(i)
             else:
                 processor_inst = processor()
-                train_encoded[:, i] = processor_inst.fit_transform(train[feat].values.reshape(-1,1)).squeeze()
-                test_encoded[:, i] = processor_inst.transform(test[feat].values.reshape(-1,1)).squeeze()
+                train_encoded[:, i] = processor_inst.fit_transform(train[feat].values.reshape(-1, 1)).squeeze()
+                test_encoded[:, i] = processor_inst.transform(test[feat].values.reshape(-1, 1)).squeeze()
         onehotinst = OneHotEncoder(categorical_features=onehots)
         train_final = onehotinst.fit_transform(train_encoded).toarray()
         test_final = onehotinst.transform(test_encoded).toarray()
@@ -66,14 +66,14 @@ class Encoder:
             processor_inst = processor[0]()
         else:
             processor_inst = processor()
-        train_encoded = processor_inst.fit_transform(train.values.reshape(-1,1))
-        test_encoded = processor_inst.transform(test.values.reshape(-1,1))
+        train_encoded = processor_inst.fit_transform(train.values.reshape(-1, 1))
+        test_encoded = processor_inst.transform(test.values.reshape(-1, 1))
         if isinstance(processor, list):
             onehotinst = OneHotEncoder()
             train_final = onehotinst.fit_transform(train_encoded).toarray()
             test_final = onehotinst.transform(test_encoded).toarray()
         else:
-            train_final, test_final = train_encoded, test_encoded
+            train_final, test_final = train_encoded.reshape(-1, 1), test_encoded.reshape(-1, 1)
         return train_final, test_final
 
     #NOTE: Scaling has to involve only the training set and that varies for cross-validation
