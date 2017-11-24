@@ -16,6 +16,11 @@ sphinx = "*"
 pytest = "*"
 pytest-runner = "*"
 "bb297d5" = {file = "http://download.pytorch.org/whl/cu80/torch-0.2.0.post3-cp36-cp36m-manylinux1_x86_64.whl"}
+pandas = "*"
+scikit-learn = "*"
+halo = "*"
+scipy = "*"
+numpy = "*"
 
 
 [dev-packages]
@@ -30,6 +35,7 @@ pytest = "*"
 pytest-runner = "*"
 mypy = "*"
 pylint = "*"
+ipython = "*"
 
 
 [requires]
