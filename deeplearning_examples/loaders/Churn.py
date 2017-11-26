@@ -12,6 +12,7 @@ from . import datapath
 from ..preprocessing import Encoder
 from ..sampling import hold_out
 
+#TODO: Make this a subclass of torch.utils.data.Dataset
 class Churn:
     """
         Class for loading the `churn` dataset to predict whether customer `exited` or not
